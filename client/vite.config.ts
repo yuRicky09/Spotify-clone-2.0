@@ -23,7 +23,7 @@ export default defineConfig({
         /\.vue\?vue/,
         /\.md$/, //
       ],
-      imports: ["vue", "vue-router"],
+      imports: ["vue", "vue-router", "pinia"],
       eslintrc: {
         enabled: true,
       },
@@ -52,6 +52,15 @@ export default defineConfig({
 
           return "assets/[name]-[hash][extname]";
         },
+      },
+    },
+  },
+  server: {
+    proxy: {
+      "/api": {
+        target: "http://localhost:5000",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
       },
     },
   },

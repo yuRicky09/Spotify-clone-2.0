@@ -1,10 +1,22 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import Spinner from "@/assets/svg/spinner.svg";
+</script>
 
 <template>
   <div>
-    <h2>icon auto importing example:</h2>
-    <i-bx-alarm-exclamation class="fill-current text-5xl" />
-    <i-bx-battery class="text-xs" />
+    <RouterView v-slot="{ Component }">
+      <Suspense timeout="0">
+        <template #default>
+          <div>
+            <component :is="Component" />
+          </div>
+        </template>
+        <template #fallback>
+          <div class="fixed inset-0 grid place-content-center">
+            <Spinner/>
+          </div>
+        </template>
+      </Suspense>
+    </RouterView>
   </div>
-  <RouterView />
 </template>
